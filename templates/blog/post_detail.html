@@ -1,0 +1,17 @@
+{% extends "main.html" %}
+
+{% block content %}
+    <img src="{{ post.thumbnail.url }}"
+         alt={{ post.title }} width=250/>
+    <strong>{{ post.title }}</strong>
+    <p>{{ post.description }}</p>
+    <div class="row">
+        <div class="col-2 text-truncate">
+            <p>{{ post.text }}</p>
+        </div>
+    </div>
+    <small>{{ post.create }}</small>
+    <a href="{% url 'post_update' slug=post.slug %}">Редактировать пост</a>
+    <hr>
+    <span>{{ post.category.title }}</span>
+{% endblock %}
