@@ -1,3 +1,14 @@
+/* Здесь пока пускай будет base стили */
 body {
 	background-color: chocolate;
+}
+
+a {
+	font-style: italic;
+}
+
+/* Link to the Profile */
+.open-profile {
+	text-decoration: none;
+
 }
