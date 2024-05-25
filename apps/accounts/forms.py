@@ -16,7 +16,7 @@ class UserRegisterForm(UserCreationForm):
 
 class UserLoginForm(AuthenticationForm):
     username = forms.CharField(label='Имя пользователя', max_length=150)
-    password = forms.CharField(attrs=forms.PasswordInput, label='Ваш пароль')
+    password = forms.CharField(widget=forms.PasswordInput, label='Ваш пароль')
 
 
 class UserUpdateForm(forms.ModelForm):
