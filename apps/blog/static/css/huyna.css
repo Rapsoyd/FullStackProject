@@ -1,14 +1,105 @@
-/* Здесь пока пускай будет base стили */
+/* Fonts
+==============================================================================*/
+/* roboto-mono-300 - latin */
+@font-face {
+	font-display: swap;
+	/* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+	font-family: 'Roboto Mono';
+	font-style: normal;
+	font-weight: 300;
+	src: url('../fontsroboto-mono-v23-latin-300.woff2') format('woff2');
+	/* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* roboto-mono-regular - latin */
+@font-face {
+	font-display: swap;
+	/* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+	font-family: 'Roboto Mono';
+	font-style: normal;
+	font-weight: 400;
+	src: url('../fontsroboto-mono-v23-latin-regular.woff2') format('woff2');
+	/* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* roboto-mono-500 - latin */
+@font-face {
+	font-display: swap;
+	/* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+	font-family: 'Roboto Mono';
+	font-style: normal;
+	font-weight: 500;
+	src: url('../fontsroboto-mono-v23-latin-500.woff2') format('woff2');
+	/* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* roboto-mono-600 - latin */
+@font-face {
+	font-display: swap;
+	/* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+	font-family: 'Roboto Mono';
+	font-style: normal;
+	font-weight: 600;
+	src: url('../fontsroboto-mono-v23-latin-600.woff2') format('woff2');
+	/* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* roboto-mono-700 - latin */
+@font-face {
+	font-display: swap;
+	/* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+	font-family: 'Roboto Mono';
+	font-style: normal;
+	font-weight: 700;
+	src: url('../fontsroboto-mono-v23-latin-700.woff2') format('woff2');
+	/* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* Base
+==============================================================================*/
 body {
-	background-color: chocolate;
+	background-color: rgb(121, 121, 121);
+	font-size: 16px;
+	font-weight: normal;
 }
 
-a {
-	font-style: italic;
+/* Header
+==============================================================================*/
+.header-logo {
+	margin: 0;
+	padding: 0;
+
+	font-size: 32px;
+	text-decoration: none;
+	color: rgb(255, 255, 255);
+	font-weight: 500;
+	font-family: 'Roboto Mono';
+
+	transition: .2s linear;
 }
 
-/* Link to the Profile */
+.header-logo:hover {
+	color: rgb(182, 181, 181);
+}
+
+/* authorization */
+.auth {
+	display: flex;
+	gap: 24px;
+}
+
+.auth-item {
+	text-decoration: none;
+	color: rgb(255, 255, 255);
+
+	transition: .2s linear;
+}
+
+.auth-item:hover {
+	color: rgb(182, 181, 181);
+}
+
+/* link to the Profile */
 .open-profile {
 	text-decoration: none;
-
 }
