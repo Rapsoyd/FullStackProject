@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 
-def register(request):
+def register_user(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
@@ -22,7 +22,7 @@ def register(request):
     return render(request, 'accounts/register.html', {'form': form})
 
 
-def user_login(request):
+def login_user(request):
     if request.method == 'POST':
         form = UserLoginForm(request, data=request.POST)
         if form.is_valid():
@@ -40,7 +40,7 @@ def user_login(request):
 
 
 @login_required
-def logout(request):
+def logout_user(request):
     logout(request)
     messages.success(request, 'Вы вышли из системы.')
     return redirect('home')  # Замените 'home' на имя вашей домашней страницы

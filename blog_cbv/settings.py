@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'mptt',  # Библиотека для построения иерархических структур
     'django_mptt_admin',
     "debug_toolbar",
-    'apps.accounts'
+    'apps.accounts',
+    'livereload',
 ]
 
 MIDDLEWARE = [
@@ -61,6 +62,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'livereload.middleware.LiveReloadScript',
 ]
 
 ROOT_URLCONF = 'blog_cbv.urls'
