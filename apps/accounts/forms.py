@@ -6,14 +6,6 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 UPDATE_FORM_WIDGET = forms.TextInput(attrs={'class': 'form-control mb-1'})
 
 
-class UserRegisterForm(UserCreationForm):
-    email = forms.EmailField()
-
-    class Meta:
-        model = User
-        fields = ['username', 'email', 'password1', 'password2']
-
-
 class UserLoginForm(AuthenticationForm):
     username = forms.CharField(label='Имя пользователя', max_length=150)
     password = forms.CharField(widget=forms.PasswordInput, label='Ваш пароль')
