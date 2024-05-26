@@ -99,7 +99,19 @@ body {
 	color: rgb(182, 181, 181);
 }
 
-/* link to the Profile */
-.open-profile {
+/* link to the Profile or Log Out */
+.profile {
+	display: flex;
+	gap: 24px;
+}
+
+.profile-item {
 	text-decoration: none;
+	color: rgb(255, 255, 255);
+
+	transition: .2s linear;
+}
+
+.profile-item:hover {
+	color: rgb(182, 181, 181);
 }
