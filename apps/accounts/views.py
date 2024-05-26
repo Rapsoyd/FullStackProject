@@ -1,7 +1,7 @@
 from django.views.generic import DetailView, UpdateView
 from django.db import transaction
 from django.urls import reverse_lazy
-from .forms import UserRegisterForm, UserLoginForm
+from django.contrib.auth.models import User
 from .models import Profile
 from .forms import UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth import login, logout, authenticate
@@ -12,32 +12,39 @@ from django.contrib import messages
 
 def register_user(request):
     if request.method == 'POST':
-        form = UserRegisterForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('home')
-    else:
-        form = UserRegisterForm()
-    return render(request, 'accounts/register.html', {'form': form})
+        username = request.POST['username']
+        email = request.POST['email']
+        password1 = request.POST['password1']
+        password2 = request.POST['password2']
+
+        if password1 == password2:
+            if User.objects.filter(username=username).exists():
+                messages.error(request, 'Username already taken')
+            elif User.objects.filter(email=email).exists():
+                messages.error(request, 'Email already registered')
+            else:
+                user = User.objects.create(username=username, email=email, password=password1)
+                user.save()
+                login(request, user)
+                return redirect('home')
+        else:
+            messages.error(request, 'Passwords do not match.')
+
+    return render(request, 'accounts/register.html')
 
 
 def login_user(request):
     if request.method == 'POST':
-        form = UserLoginForm(request, data=request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect('home')
-            else:
-                messages.error(request, 'Неверное имя пользователя или пароль.')
-    else:
-        form = UserLoginForm()
-    return render(request, 'accounts/login.html', {'form': form})
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+        else:
+            messages.error(request, 'Invalid username or password.')
 
+    return render(request, 'accounts/login.html')
 
 @login_required
 def logout_user(request):
