@@ -57,11 +57,26 @@
 
 /* Base
 ==============================================================================*/
+html {
+	box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: inherit;
+}
+
 body {
 	/* background-color: rgb(180, 180, 180); */
 	font-size: 16px;
 	font-weight: normal;
 	font-family: 'Roboto Mono';
+}
+
+img {
+	max-width: 100%;
+	height: auto;
 }
 
 /* ========================================================================== */
