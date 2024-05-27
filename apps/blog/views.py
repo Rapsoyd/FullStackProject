@@ -23,7 +23,7 @@ class PostListView(ListView):
 
 class PostDetailView(DetailView):
     model = Post
-    template_name = 'blog/post_detail.html'
+    template_name = 'blog/blogs_components/post_detail.html'
     context_object_name = "post"  # Переменная с которой мы будем работать в шаблоне
 
 
@@ -48,7 +48,7 @@ class PostFromCategory(ListView):
 
 class PostCreateView(CreateView):
     model = Post
-    template_name = "blog/post_create.html"
+    template_name = "blog/blogs_components/post_create.html"
     form_class = PostCreateForm
 
     def form_valid(self, form):
@@ -62,7 +62,7 @@ class PostUpdateView(UpdateView):
     Представление: обновления материала на сайте
     """
     model = Post
-    template_name = 'blog/post_update.html'
+    template_name = 'blog/blogs_components/post_update.html'
     context_object_name = 'post'
     form_class = PostUpdateForm
 
