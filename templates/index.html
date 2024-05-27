@@ -12,7 +12,7 @@
     <meta name="msapplication-TileColor" content="#603cba" />
     <meta name="msapplication-config" content="/media/images/favicon/browserconfig.xml" />
     <meta name="theme-color" content="#ffffff" />
-    <title>{{ title }}</title>
+    <title>{% block title %}Welcome to the Gacha{% endblock %}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
     <link rel="stylesheet" href="{% static 'blog/static/css/index.css' %}" />
     {% block extra_css %}
@@ -28,8 +28,9 @@
     <main class="main container">
       <div class="main-content">
         <h1 class="main-title">Welcome to the Gacha Club</h1>
-        <a class="main-button" href="#!">Let's get to the Journey!</a>
+        <a class="main-button" href="{% url 'blogs_page' %}">Let's get to the Journey!</a>
       </div>
+        {% block content %}{% endblock %}
     </main>
 
     {% comment %}Footer{% endcomment %}
