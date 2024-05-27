@@ -1,33 +1,39 @@
 {% extends 'index.html' %}
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'blog/static/css/register.css' %}" />
+{% endblock %}
 
 {% block content %}
-  <h2>Register</h2>
-  <form method="post" action="{% url 'register' %}">
-    {% csrf_token %}
-    {% if messages %}
-      {% for message in messages %}
-        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-          {{ message }}
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-      {% endfor %}
-    {% endif %}
-    <div class="form-group">
-      <label for="id_username">Username:</label>
-      <input type="text" name="username" class="form-control" id="id_username" maxlength="150" required />
-    </div>
-    <div class="form-group">
-      <label for="id_email">Email:</label>
-      <input type="email" name="email" class="form-control" id="id_email" maxlength="254" required />
-    </div>
-    <div class="form-group">
-      <label for="id_password1">Password:</label>
-      <input type="password" name="password1" class="form-control" id="id_password1" required />
-    </div>
-    <div class="form-group">
-      <label for="id_password2">Confirm Password:</label>
-      <input type="password" name="password2" class="form-control" id="id_password2" required />
-    </div>
-    <button type="submit" class="btn btn-primary">Register</button>
-  </form>
+  <h2 class="register-title">Registration Form</h2>
+
+  <div class="form-wrap">
+    <form class="form" method="post" action="{% url 'register' %}">
+      {% csrf_token %}
+
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+      {% endif %}
+
+      <div class="input-box">
+        <input type="text" name="username" class="input form-control" id="id_username" maxlength="150" placeholder="Make your username" />
+      </div>
+      <div class="input-box">
+        <input type="email" name="email" class="input form-control" id="id_email" maxlength="254" required placeholder="Type your email" />
+      </div>
+      <div class="input-box">
+        <input type="password" name="password1" class="input form-control" id="id_password1" required placeholder="Make your password" />
+      </div>
+      <div class="input-box">
+        <input type="password" name="password2" class="input form-control" id="id_password2" required placeholder="Repeat your password" />
+      </div>
+      <button type="submit" class="register-button btn btn-primary">Apply Register</button>
+    </form>
+  </div>
 {% endblock %}

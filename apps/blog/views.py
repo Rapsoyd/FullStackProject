@@ -1,10 +1,13 @@
 from django.views.generic import ListView, DetailView, CreateView, UpdateView  # Импортируем базовое представление
 from apps.blog.models import Post, Category
 from .forms import PostCreateForm, PostUpdateForm
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 
 def index(request):
+    user = request.user
+    if user.is_authenticated:
+        return redirect('blogs_page')
     return render(request, 'index.html')
 
 

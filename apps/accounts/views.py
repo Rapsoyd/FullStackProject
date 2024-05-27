@@ -26,7 +26,7 @@ def register_user(request):
                 user = User.objects.create(username=username, email=email, password=password1)
                 user.save()
                 login(request, user)
-                return redirect('home')
+                return redirect('blogs_page')
         else:
             messages.error(request, 'Passwords do not match.')
 
@@ -40,7 +40,7 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('home')
+            return redirect('blogs_page')
         else:
             messages.error(request, 'Invalid username or password.')
 
@@ -50,7 +50,7 @@ def login_user(request):
 def logout_user(request):
     logout(request)
     messages.success(request, 'Вы вышли из системы.')
-    return redirect('home')  # Замените 'home' на имя вашей домашней страницы
+    return redirect('blogs_page')  # Замените 'home' на имя вашей домашней страницы
 
 
 class ProfileDetailView(DetailView):
