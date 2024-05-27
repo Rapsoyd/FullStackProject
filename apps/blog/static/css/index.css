@@ -61,6 +61,7 @@ body {
 	/* background-color: rgb(180, 180, 180); */
 	font-size: 16px;
 	font-weight: normal;
+	font-family: 'Roboto Mono';
 }
 
 /* ========================================================================== */
@@ -130,6 +131,46 @@ body {
 }
 
 /* ========================================================================== */
+
+
+/* Main
+==============================================================================*/
+.main {
+	margin-top: auto;
+
+	text-align: center;
+}
+
+.main-title {
+	margin-bottom: 50px;
+
+	font-weight: 700;
+	font-size: 56px;
+	color: black;
+}
+
+.main-button {
+	padding: 10px;
+
+	text-decoration: none;
+	font-size: 24px;
+	color: black;
+	font-weight: 600;
+
+	transition: .4s linear;
+	border: 2px solid black;
+	border-radius: 10%;
+}
+
+.main-button:hover {
+	color: white;
+
+	background-color: black;
+	border: 2px solid white;
+}
+
+/* ========================================================================== */
+
 
 /* Footer
 ==============================================================================*/
