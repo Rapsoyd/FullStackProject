@@ -4,6 +4,12 @@ from django.core.validators import FileExtensionValidator  # Импортиру�
 from django.contrib.auth.models import User  # Импортируем базовую модель юзера
 from mptt.models import MPTTModel, TreeForeignKey
 from apps.services.utils import unique_slugify
+import uuid
+from apps.blog.fields import WEBPField
+
+
+def image_folder(instance, filename):
+    return 'images/thumbnails/{}.webp'.format(uuid.uuid4().hex)
 
 
 class PostManager(models.Manager):
@@ -28,15 +34,14 @@ class Post(models.Model):
         ("draft", "Черновик")
     )
     title = models.CharField(verbose_name="Название записи", max_length=255)
-    slug = models.SlugField(verbose_name="URL", max_length=255, blank=True)
+    slug = models.SlugField(verbose_name="URL", max_length=400, blank=True)
     description = models.TextField(verbose_name="Краткое описание", max_length=500)
     text = models.TextField(verbose_name="Полный текст записи")
     category = TreeForeignKey("Category", on_delete=models.PROTECT, related_name='posts', verbose_name="Категория")
-    thumbnail = models.ImageField(default="default.jpg",    
+    thumbnail = models.ImageField(default="images/avatars/default.jpg",
                                   verbose_name="Изображение записи",
                                   blank=True,
-                                  upload_to='images/thumbnails/%Y/%m/%d',
-                                  validators=[FileExtensionValidator(allowed_extensions=('png', 'jpg', 'jpeg', 'webp', 'gif'))]
+                                  upload_to=image_folder,
                                   )
     status = models.CharField(choices=STATUS_OPTIONS, default="published", verbose_name="Статусы записей", max_length=10)
     create = models.DateTimeField(auto_now_add=True, verbose_name="Время добавления")
@@ -71,7 +76,7 @@ class Post(models.Model):
         self.slug = unique_slugify(self, self.title)
         super().save(*args, **kwargs)
 
-
+    
 class Category(MPTTModel):
     """
     Модель категорий с вложенностью

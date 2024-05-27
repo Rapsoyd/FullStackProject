@@ -1,18 +1,23 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.core.validators import FileExtensionValidator
 from django.urls import reverse
 from apps.services.utils import unique_slugify
+import uuid
+from apps.accounts.fields import WEBPField
+
+
+def image_folder(instance, filename):
+    return 'images/avatars/{}.webp'.format(uuid.uuid4().hex)
 
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     slug = models.SlugField(verbose_name="URL", max_length=255, blank=True, unique=True)
-    avatar = models.ImageField(
+    avatar = WEBPField(
         verbose_name="Аватар",
-        upload_to="images/avatars/%Y/%m/%d/",
-        default="images/avatars/default.png",
-        validators=[FileExtensionValidator(allowed_extensions=("png", "jpg", "jpeg"))]
+        upload_to=image_folder,
+        default="images/avatars/default.jpg",
+        blank=True
     )
     bio = models.TextField(max_length=500, blank=True, verbose_name='Информация о себе')
     birth_date = models.DateField(null=True, blank=True, verbose_name="Дата рождения")
