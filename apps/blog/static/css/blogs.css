@@ -1,0 +1,54 @@
+.blogs-content {
+	max-width: 100%;
+	display: flex;
+	padding-top: 24px;
+	gap: 16px;
+}
+
+.blog-card {
+	margin-bottom: 24px;
+	display: flex;
+	flex-direction: row;
+}
+
+.image-wrap {
+	margin-bottom: 0;
+}
+
+.card-image {
+	height: 100%;
+}
+
+.sidebar {
+	padding-top: 0;
+}
+
+.sidebar-header {
+	font-weight: 300;
+	font-size: 20px;
+
+	background-color: black;
+	color: white;
+}
+
+.sidebar-list {
+	padding: 0 32px;
+}
+
+.sidebar-item {
+	transition: .3s all;
+}
+
+.sidebar-item:hover {
+	text-decoration: overline;
+
+	transform: translateY(-5px);
+}
+
+.sidebar-link {
+	text-decoration: none;
+	color: rgb(0, 0, 0);
+	font-family: 'Roboto Mono';
+	font-weight: 500;
+	font-size: 18px;
+}

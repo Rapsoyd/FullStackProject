@@ -1,17 +1,22 @@
 {% extends 'index.html' %}
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'blog/static/css/blogs.css' %}" />
+{% endblock %}
 
 {% block title %}
-Blogs Page
+  Blogs Page
 {% endblock %}
 
 {% block content %}
-  {% for post in posts %}
-    <div class="card mb-3">
-      <div class="row">
-        <div class="col-4">
-          <img src="{{ post.thumbnail.url }}" class="card-img-top" alt="{{ post.title }}" />
-        </div>
-        <div class="col-8">
+  <div class="blogs-content">
+    <div class="blogs-cards">
+      {% for post in posts %}
+        <div class="card blog-card">
+          <figure class="image-wrap">
+            <img src="{{ post.thumbnail.url }}" class="card-img-top card-image" alt="{{ post.title }}" />
+          </figure>
           <div class="card-body">
             <h5 class="card-title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h5>
             <p class="card-text">{{ post.description }}</p>
@@ -20,7 +25,10 @@ Blogs Page
             <a href="{{ post.category.get_absolute_url }}">{{ post.category.title }}</a>
           </div>
         </div>
-      </div>
+      {% endfor %}
     </div>
-  {% endfor %}
+
+    {% include 'blog/blogs_components/sidebar.html' %}
+  </div>
+  {% include 'blog/blogs_components/pagination.html' %}
 {% endblock %}
