@@ -4,7 +4,7 @@
       {% if page_number == page.obj.paginator.ELLIPSIS %}
         {{ page_number }}
       {% else %}
-        <a href="?page={{ page_number }}" class="page-link">{{ page_number }}</a>
+        <a href="?page={{ page_number }}" class="page-link pagination-link">{{ page_number }}</a>
       {% endif %}
     {% endfor %}
   </div>

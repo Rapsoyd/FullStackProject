@@ -2,11 +2,15 @@
 {% load static %}
 
 {% block extra_css %}
-  <link rel="stylesheet" href="{% static 'blog/static/css/register.css' %}" />
+  <link rel="stylesheet" href="{% static 'blog/static/css/signIn.css' %}" />
+{% endblock %}
+
+{% block title %}
+  Sign Up
 {% endblock %}
 
 {% block content %}
-  <h2 class="register-title">Registration Form</h2>
+  <h2 class="signIn-title">Registration Form</h2>
 
   <div class="form-wrap">
     <form class="form" method="post" action="{% url 'register' %}">
@@ -33,7 +37,7 @@
       <div class="input-box">
         <input type="password" name="password2" class="input form-control" id="id_password2" required placeholder="Repeat your password" />
       </div>
-      <button type="submit" class="register-button btn btn-primary">Apply Register</button>
+      <button type="submit" class="signIn-button btn btn-primary">Apply Register</button>
     </form>
   </div>
 {% endblock %}

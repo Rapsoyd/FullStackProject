@@ -1,10 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'accounts/register.html' %}
+{% load static %}
 
-</body>
-</html>
+{% block title %}
+  Login
+{% endblock %}
+
+{% block content %}
+  <h2 class="signIn-title">Login Form</h2>
+
+  <div class="form-wrap">
+    <form class="form" method="post" action="{% url 'login' %}">
+      {% csrf_token %}
+
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+      {% endif %}
+
+      <div class="input-box">
+        <input type="text" name="username" class="input form-control" id="id_username" maxlength="150" placeholder="Type your username" />
+      </div>
+      <div class="input-box">
+        <input type="password" name="password1" class="input form-control" id="id_password1" required placeholder="Type your password" />
+      </div>
+      <div class="input-box">
+        <a class="reset-password-link" href="#!">Have you forgotten your password? Reset it.</a>
+      </div>
+
+      <button type="submit" class="signIn-button btn btn-primary">Apply Login</button>
+    </form>
+  </div>
+{% endblock %}
