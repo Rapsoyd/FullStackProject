@@ -10,25 +10,28 @@
 {% endblock %}
 
 {% block content %}
-  <div class="blogs-content">
-    <div class="blogs-cards">
-      {% for post in posts %}
-        <div class="card blog-card">
-          <figure class="image-wrap">
-            <img src="{{ post.thumbnail.url }}" class="card-img-top card-image" alt="{{ post.title }}" />
-          </figure>
-          <div class="card-body">
-            <h5 class="card-title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h5>
-            <p class="card-text">{{ post.description }}</p>
-            <small>Добавил {{ post.author.username }}, {{ post.create }},</small>
-            в категорию:
-            <a href="{{ post.category.get_absolute_url }}">{{ post.category.title }}</a>
-          </div>
-        </div>
-      {% endfor %}
-    </div>
-
+  <div class="blogs-wrapper">
     {% include 'blog/blogs_components/sidebar.html' %}
+
+    <div class="blogs-content">
+      <div class="blogs-cards">
+        {% for post in posts %}
+          <div class="card blog-card">
+            <figure class="image-wrap">
+              <img src="{{ post.thumbnail.url }}" class="card-img-top card-image" alt="{{ post.title }}" />
+            </figure>
+            <div class="card-body">
+              <h5 class="card-title"><a class="card-title-link" href="{{ post.get_absolute_url }}">{{ post.title }}</a></h5>
+              <p class="card-text">{{ post.description }}</p>
+              <small>Добавил {{ post.author.username }}, {{ post.create }},</small>
+              <br />
+              В категорию:
+              <a class="card-category-link" href="{{ post.category.get_absolute_url }}">{{ post.category.title }}</a>
+            </div>
+          </div>
+        {% endfor %}
+        {% include 'blog/blogs_components/pagination.html' %}
+      </div>
+    </div>
   </div>
-  {% include 'blog/blogs_components/pagination.html' %}
 {% endblock %}
