@@ -137,7 +137,6 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'apps'),  # Глобальная директория статических файлов на уровне проекта
 ]
 
-
 MEDIA_URL = '/media/'
 MEDIA_ROOT = (BASE_DIR / 'media')
 
@@ -148,3 +147,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
+
+# SMTP server
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'egorsamber323@gmail.com'
+EMAIL_HOST_PASSWORD = 'cmju pzor rnrl cmuz'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
