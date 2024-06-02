@@ -25,10 +25,10 @@
         <input type="text" name="username" class="input form-control" id="id_username" maxlength="150" placeholder="Type your username" />
       </div>
       <div class="input-box">
-        <input type="password" name="password1" class="input form-control" id="id_password1" required placeholder="Type your password" />
+        <input type="password" name="password" class="input form-control" id="id_password1" required placeholder="Type your password" />
       </div>
       <div class="input-box">
-        <a class="reset-password-link" href="#!">Have you forgotten your password? Reset it.</a>
+        <a class="reset-password-link" href="{% url 'password_reset_request' %}">Have you forgotten your password? Reset it.</a>
       </div>
 
       <button type="submit" class="signIn-button btn btn-primary">Apply Login</button>
