@@ -7,8 +7,12 @@
             {% full_tree_for_model blog.Category as categories %}
             <ul class="sidebar-list">
                 {% recursetree categories %}
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ node.get_absolute_url }}">{{ node.title }}</a>
+                      <li class="sidebar-item">
+                        {% if node.title == "All Articles" %}
+                            <a class="sidebar-link" href="{% url 'blogs_page' %}">{{ node.title }}</a>
+                        {% else %}
+                            <a class="sidebar-link" href="{{ node.get_absolute_url }}">{{ node.title }}</a>
+                        {% endif %}
                     </li>
                     {% if not node.is_leaf_node %}
                         <ul class="sidebar-child-list">{% endif %}
