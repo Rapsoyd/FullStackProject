@@ -76,7 +76,24 @@ class Post(models.Model):
         self.slug = unique_slugify(self, self.title)
         super().save(*args, **kwargs)
 
-    
+
+class Comment(models.Model):
+    author = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    post = models.ForeignKey(to=Post, related_name='comments', on_delete=models.CASCADE)
+    content = models.TextField()
+    parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = 'Комментарий'
+        verbose_name_plural = 'Комментарии'
+        indexes = [models.Index(fields=['post', 'author'])]
+
+    def __str__(self):
+        return f"Comment by {self.author} ob {self.post}"
+
+
 class Category(MPTTModel):
     """
     Модель категорий с вложенностью

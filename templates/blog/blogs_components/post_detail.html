@@ -14,4 +14,26 @@
     <a href="{% url 'post_update' slug=post.slug %}">Редактировать пост</a>
     <hr>
     <span>{{ post.category.title }}</span>
+    <h2>Comments</h2>
+    {% for comment in comments %}
+        <div>
+            <p>{{ comment.content }} - {{ comment.author }}</p>
+        </div>
+    {% endfor %}
+
+    {% if user.is_authenticated %}
+        <h2>Add a comment</h2>
+        <form method="post"
+              action="{% url 'comment_create' post.id %}">
+            {% csrf_token %}
+            <textarea name="content"
+                      placeholder="Add a comment..."></textarea>
+            <input type="hidden"
+                   name="parent"
+                   value="">
+            <button type="submit">Post Comment</button>
+        </form>
+    {% else %}
+        <p>You need to <a href="{% url 'login' %}?next={% url 'post_detail' post.id %}">login</a> to add a comment.</p>
+    {% endif %}
 {% endblock %}

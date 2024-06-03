@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django_mptt_admin.admin import DjangoMpttAdmin  # Добавляем возможность красиво скрывать вложенные объекты в админке
-from apps.blog.models import Category, Post
+from apps.blog.models import Category, Post, Comment
+
+admin.site.register(Comment)
 
 
 @admin.register(Category)  # Регистрируем модель Категорий в админке
