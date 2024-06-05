@@ -70,3 +70,8 @@
 	background-color: black;
 	border: 3px solid white;
 }
+
+.reset-request-received {
+	font-size: 28px;
+	color: rgb(0, 0, 0);
+}
