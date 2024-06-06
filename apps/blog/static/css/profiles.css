@@ -1,0 +1,93 @@
+body {
+	overflow-x: hidden;
+}
+
+.profile-content {
+	max-width: 100%;
+	margin: 30px 0 50px;
+}
+
+.avatar-wrap {
+	margin-bottom: 20px;
+}
+
+.avatar-thumbnail {
+	width: 350px;
+	height: 350px;
+
+	border-radius: 50%;
+	box-shadow: 3px 3px rgb(81 80 80), -1em 0 .4em rgb(0 0 0);
+}
+
+.profile-info {
+	padding-left: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	list-style: none;
+}
+
+.profile-title {
+	margin-bottom: 50px;
+
+	font-weight: 600;
+	font-size: 48px;
+
+	transform: translateX(-100%);
+	animation: slidingText 13s linear infinite;
+	box-shadow: 10px 5px 5px rgb(0, 0, 0);
+	border-radius: 20px;
+}
+
+@keyframes slidingText {
+	from {
+		transform: translateX(-100%);
+	}
+
+	to {
+		transform: translateX(100%);
+	}
+}
+
+.profile-info-item {
+	max-width: 50%;
+	margin-bottom: 20px;
+	padding: 15px;
+
+	font-size: 20px;
+	color: rgb(81 80 80);
+
+	border: 3px solid black;
+	border-radius: 0.375rem;
+}
+
+.profile-info-current {
+	font-size: 24px;
+	color: black;
+}
+
+.profile-edit-link-item {
+	margin-top: 40px;
+}
+
+.profile-edit-link {
+	padding: 20px;
+
+	font-family: 'Roboto Mono';
+	font-size: 20px;
+	color: black;
+	text-decoration: none;
+
+	transition: .4s linear;
+	border: 3px solid black;
+	border-radius: 10%;
+	background-color: white;
+}
+
+.profile-edit-link:hover {
+	color: white;
+
+	background-color: black;
+	border: 3px solid white;
+}
