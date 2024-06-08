@@ -12,8 +12,8 @@ body {
 }
 
 .avatar-thumbnail {
-	width: 350px;
-	height: 350px;
+	width: 250px;
+	height: 250px;
 
 	border-radius: 50%;
 	box-shadow: 3px 3px rgb(81 80 80), -1em 0 .4em rgb(0 0 0);
