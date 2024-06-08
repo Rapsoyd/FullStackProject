@@ -1,9 +1,8 @@
-from django.views.generic import DetailView, UpdateView
+from django.views.generic import DetailView
 from django.db import transaction
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.models import User
 from .models import Profile
-from .forms import UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth import login, logout, authenticate
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
@@ -124,37 +123,50 @@ class ProfileDetailView(DetailView):
         return context
 
 
-class ProfileUpdateView(UpdateView):
-    """
-    Представление для редактирования профиля
-    """
-    model = Profile
-    form_class = ProfileUpdateForm
-    template_name = 'accounts/profile_edit.html'
+@login_required
+def profile_update(request):
+    user = request.user
+    profile = user.profile
+    if request.method == 'POST':
 
-    def get_object(self, queryset=None):
-        return self.request.user.profile
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        birth_date = request.POST.get('birth_date')
+        bio = request.POST.get('bio')
+        avatar = request.POST.get('avatar')
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = f'Редактирование профиля пользователя: {self.request.user.username}'
-        if self.request.POST:
-            context['user_form'] = UserUpdateForm(self.request.POST, instance=self.request.user)
-        else:
-            context['user_form'] = UserUpdateForm(instance=self.request.user)
-        return context
+        if User.objects.filter(email=email).exclude(username=user.username).exists():
+            context = {
+                'error_message': 'Email адрес должен быть уникальным',
+                'title': f"Редактирование профиля пользователя {user.username}"
+            }
+            return render(request, 'accounts/profile_edit.html', context)
 
-    def form_valid(self, form):
-        context = self.get_context_data()
-        user_form = context['user_form']
         with transaction.atomic():
-            if all([form.is_valid(), user_form.is_valid()]):
-                user_form.save()
-                form.save()
-            else:
-                context.update({'user_form': user_form})
-                return self.render_to_response(context)
-        return super(ProfileUpdateView, self).form_valid(form)
+            user.username = username
+            user.email = email
+            user.first_name = first_name
+            user.last_name = last_name
+            user.save()
 
-    def get_success_url(self):
-        return reverse_lazy('profile_detail', kwargs={'slug': self.object.slug})
+            if birth_date:
+                profile.birth_date = birth_date
+            profile.bio = bio
+            if avatar:
+                profile.avatar = avatar
+            profile.save()
+
+        return redirect(reverse_lazy('profile_detail', kwargs={'slug': profile.slug}))
+
+    context = {
+        'title': f"Редактирование профиля пользователя: {request.user.username}",
+        'username': user.username,
+        'email': user.email,
+        'first_name': user.first_name,
+        'last_name': user.last_name,
+        'bio': profile.bio,
+        'avatar': profile.avatar,
+    }
+    return render(request, 'accounts/profile_edit.html', context, )

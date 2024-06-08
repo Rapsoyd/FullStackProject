@@ -1,17 +1,44 @@
-{% extends 'index.html' %} {% block content %}
-<div class="card mb-3 border-0 nth-shadow">
-	<div class="card-body">
-		<div class="card-title nth-card-title">
-			<h4>Изменение профиля</h4>
-		</div>
-		<form method="post" enctype="multipart/form-data">
-			{% csrf_token %} {{ user_form.as_p }} {{ form.as_p }}
-			<div class="d-grid gap-2 d-md-block mt-2">
-				<button type="submit" class="btn btn-dark">
-					Подтвердить изменение профиля
-				</button>
-			</div>
-		</form>
-	</div>
-</div>
+{% extends 'index.html' %}
+
+{% block content %}
+<h2>{{ title }}</h2>
+
+{% if error_message %}
+  <div class="alert alert-danger">{{ error_message }}</div>
+{% endif %}
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <fieldset class="form-group">
+        <legend>Обновление данных пользователя</legend>
+        <label for="id_username">Username:</label>
+        <input type="text" id="id_username" name="username" class="form-control" value="{{ username }}">
+
+        <label for="id_email">Email:</label>
+        <input type="email" id="id_email" name="email" class="form-control" value="{{ email }}">
+
+        <label for="id_first_name">First Name:</label>
+        <input type="text" id="id_first_name" name="first_name" class="form-control" value="{{ first_name }}">
+
+        <label for="id_last_name">Last Name:</label>
+        <input type="text" id="id_last_name" name="last_name" class="form-control" value="{{ last_name }}">
+    </fieldset>
+
+    <fieldset class="form-group">
+        <legend>Обновление профиля</legend>
+        <label for="id_birth_date">Birth Date:</label>
+        <input type="date" id="id_birth_date" name="birth_date" class="form-control" value="{{ birth_date }}">
+
+        <label for="id_bio">Bio:</label>
+        <textarea id="id_bio" name="bio" class="form-control" required>{{ bio }}</textarea>
+
+        <label for="id_avatar">Avatar:</label>
+        <input type="file" id="id_avatar" name="avatar" class="form-control mb-1">
+        {% if avatar %}
+        <img src="{{ avatar }}" alt="Avatar" style="max-width: 200px;">
+        {% endif %}
+    </fieldset>
+
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+</form>
 {% endblock %}

@@ -1,36 +1,47 @@
-{% extends 'index.html' %} {% block content %}
-<div class="card border-0">
-	<div class="card-body">
-		<div class="row">
-			<div class="col-md-3">
-				<figure>
-					<img
-						src="{{ profile.avatar.url }}"
-						class="img-fluid rounded-0"
-						alt="{{ profile }}"
-					/>
-				</figure>
-			</div>
-			<div class="col-md-9">
-				<h5 class="card-title">{{ profile }}</h5>
-				<div class="card-text">
-					<ul>
-						<li>Никнейм: {{ profile.user.username }}</li>
-						{% if profile.user.get_full_name %}
-						<li>Имя и фамилия: {{ profile.user.get_full_name }}</li>
-						{% endif %}
-						<li>Заходил: {{ profile.user.last_login }}</li>
-						<li>Дата рождения: {{ profile.birth_date }}</li>
-						<li>О себе: {{ profile.bio }}</li>
-					</ul>
-					{% if request.user == profile.user %}
-					<a href="{% url 'profile_edit' %}" class="btn btn-sm btn-primary"
-						>Редактировать профиль</a
-					>
-					{% endif %}
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+{% extends 'index.html' %}
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'blog/static/css/profiles.css' %}" />
+{% endblock %}
+
+{% block title %}
+  Your profile
+{% endblock %}
+
+{% block content %}
+  <div class="profile-content">
+    <div class="avatar-wrap">
+      <img src="{{ profile.avatar.url }}" class="avatar-thumbnail" alt="{{ profile }}" />
+    </div>
+
+    <h2 class="profile-title"> 🍺 - - {{ profile }} - - {{ profile }} - - {{ profile }} - - 🍺 </h2>
+    <div class="card-text">
+      <ul class="profile-info">
+        <li class="profile-info-item">
+          Nickname: <span class="profile-info-current">{{ profile.user.username }}</span>
+        </li>
+        {% if profile.user.get_full_name %}
+          <li class="profile-info-item">
+            Firstname and Surname: <span class="profile-info-current">{{ profile.user.get_full_name }}</span>
+          </li>
+        {% endif %}
+        <li class="profile-info-item">
+          Last seen: <span class="profile-info-current">{{ profile.user.last_login }}</span>
+        </li>
+        <li class="profile-info-item">
+          Date Of Birth: <span class="profile-info-current">{{ profile.birth_date }}</span>
+        </li>
+        <li class="profile-info-item">
+          BIO: <span class="profile-info-current">{{ profile.bio }}</span>
+        </li>
+
+        <li class="profile-edit-link-item">
+          {% if request.user == profile.user %}
+            <a href="{% url 'profile_edit' %}" class="profile-edit-link">Edit your profile</a>
+          {% endif %}
+        </li>
+      </ul>
+    </div>
+  </div>
 {% endblock %}
