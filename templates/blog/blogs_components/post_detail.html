@@ -1,17 +1,29 @@
 {% extends "index.html" %}
 
+{% block title %}
+  {{ post.title }}
+{% endblock %}
+
 {% block content %}
-    <img src="{{ post.thumbnail.url }}"
-         alt={{ post.title }} width=250/>
-    <strong>{{ post.title }}</strong>
-    <p>{{ post.description }}</p>
-    <div class="row">
-        <div class="col-2 text-truncate">
-            <p>{{ post.text }}</p>
+  <div class="post-detail-wrapper">
+    <div class="post-header">
+      <img src="{{ post.thumbnail.url }}" alt="{{ post.title }}" class="post-thumbnail" />
+      <div class="post-meta">
+        <h1 class="post-title">{{ post.title }}</h1>
+        <p class="post-description">{{ post.description }}</p>
+        <div class="post-author">
+          <a href="{% url 'profile_detail' slug=profile.slug %}" class="post-author-link">Автор: {{ post.author.username }}</a>
         </div>
+        <div class="post-date">
+          <small>Опубликовано: {{ post.create|date:"d M Y" }}</small>
+        </div>
+        <div class="post-category">
+          <span>Категория: <a href="{{ post.category.get_absolute_url }}">{{ post.category.title }}</a></span>
+        </div>
+      </div>
     </div>
-    <small>{{ post.create }}</small>
-    <a href="{% url 'post_update' slug=post.slug %}">Редактировать пост</a>
-    <hr>
-    <span>{{ post.category.title }}</span>
+    <div class="post-content">
+      <p>{{ post.text }}</p>
+    </div>
+  </div>
 {% endblock %}
