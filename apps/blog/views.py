@@ -1,8 +1,10 @@
-from django.views.generic import ListView, DetailView, CreateView, UpdateView  # Импортируем базовое представление
+from django.views.generic import ListView, DetailView, UpdateView  # Импортируем базовое представление
 from apps.blog.models import Post, Category
-from .forms import PostCreateForm, PostUpdateForm
+from .forms import PostUpdateForm
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
+from django.contrib import messages
 
 
 def index(request):
@@ -29,6 +31,12 @@ class PostDetailView(DetailView):
     model = Post
     template_name = 'blog/blogs_components/post_detail.html'
     context_object_name = "post"  # Переменная с которой мы будем работать в шаблоне
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        post = self.get_object()
+        context['profile'] = post.author.profile
+        return context
 
 
 class PostFromCategory(ListView):
@@ -68,6 +76,14 @@ def post_create_view(request):
         return render(request, 'blog/blogs_components/post_create.html', context)
 
 
+@login_required
+def user_post_list(request):
+    user = request.user
+    post_list = Post.objects.all().filter(author=user)
+    context = {'posts': post_list, 'title': 'Мои посты'}
+    return render(request, 'blog/blogs_components/user_posts.html', context)
+
+
 class PostUpdateView(UpdateView):
     """
     Представление: обновления материала на сайте
@@ -76,6 +92,14 @@ class PostUpdateView(UpdateView):
     template_name = 'blog/blogs_components/post_update.html'
     context_object_name = 'post'
     form_class = PostUpdateForm
+
+    def dispatch(self, request, *args, **kwargs):
+        slug = kwargs.get('slug')
+        post = get_object_or_404(Post, slug=slug)
+        if post.author != self.request.user:
+            messages.error(request, 'You are not allowed to edit this post.')
+            return redirect('blogs_page')
+        return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
         form.instance.updater = self.request.user
