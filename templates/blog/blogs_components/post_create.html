@@ -1,18 +1,42 @@
 {% extends 'index.html' %}
 
 {% block content %}
-<div class="card mb-3 border-0 nth-shadow">
-    <div class="card-body">
-        <div class="card-title nth-card-title">
-            <h4>Добавление статьи</h4>
-        </div>
-        <form method="post" action="{% url 'post_create' %}" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <div class="d-grid gap-2 d-md-block mt-2">
-                <button type="submit" class="btn btn-dark">Добавить статью</button>
-            </div>
-        </form>
+<div class="container">
+  <h2>{{ title }}</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="id_title">Заголовок:</label>
+      <input type="text" id="id_title" name="title" class="form-control" required>
     </div>
+    <div class="form-group">
+      <label for="id_category">Категория:</label>
+      <select id="id_category" name="category" class="form-control" required>
+        {% for category in categories %}
+          <option value="{{ category.id }}">{{ category.title }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="id_description">Описание:</label>
+      <textarea id="id_description" name="description" class="form-control" required></textarea>
+    </div>
+    <div class="form-group">
+      <label for="id_text">Текст:</label>
+      <textarea id="id_text" name="text" class="form-control" required></textarea>
+    </div>
+    <div class="form-group">
+      <label for="id_thumbnail">Изображение:</label>
+      <input type="file" id="id_thumbnail" name="thumbnail" class="form-control-file">
+    </div>
+    <div class="form-group">
+      <label for="id_status">Статус:</label>
+      <select id="id_status" name="status" class="form-control">
+        <option value="draft">Черновик</option>
+        <option value="published">Опубликован</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Создать пост</button>
+  </form>
 </div>
 {% endblock %}

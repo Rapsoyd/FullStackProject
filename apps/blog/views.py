@@ -2,6 +2,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView  #
 from apps.blog.models import Post, Category
 from .forms import PostCreateForm, PostUpdateForm
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):
@@ -47,17 +48,24 @@ class PostFromCategory(ListView):
         return queryset
 
 
-
-
-class PostCreateView(CreateView):
-    model = Post
-    template_name = "blog/blogs_components/post_create.html"
-    form_class = PostCreateForm
-
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        form.save()
-        return super().form_valid(form)
+@login_required
+def post_create_view(request):
+    categories = Category.objects.all().exclude(title='All Articles')
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        category = request.POST.get('category')
+        description = request.POST.get('description')
+        text = request.POST.get('text')
+        thumbnail = request.POST.get('thumbnail')
+        status = request.POST.get('status')
+        Post.objects.create(title=title, category=category,
+                            description=description, text=text, thumbnail=thumbnail, status=status)
+    else:
+        context = {
+            'title': 'Создание поста',
+            'categories': categories
+        }
+        return render(request, 'blog/blogs_components/post_create.html', context)
 
 
 class PostUpdateView(UpdateView):
@@ -68,7 +76,6 @@ class PostUpdateView(UpdateView):
     template_name = 'blog/blogs_components/post_update.html'
     context_object_name = 'post'
     form_class = PostUpdateForm
-
 
     def form_valid(self, form):
         form.instance.updater = self.request.user

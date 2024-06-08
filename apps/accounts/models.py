@@ -16,7 +16,7 @@ class Profile(models.Model):
     avatar = WEBPField(
         verbose_name="Аватар",
         upload_to=image_folder,
-        default="images/avatars/default.jpg",
+        default="images/avatars/default.webp",
         blank=True
     )
     bio = models.TextField(max_length=500, blank=True, verbose_name='Информация о себе')

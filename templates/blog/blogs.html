@@ -31,6 +31,7 @@
           </div>
         {% endfor %}
         {% include 'blog/blogs_components/pagination.html' %}
+        <a href="{% url 'post_create' %}" class="create-post-link">Хотите написать свой пост? Кликайте сюда!</a>
       </div>
     </div>
   </div>
